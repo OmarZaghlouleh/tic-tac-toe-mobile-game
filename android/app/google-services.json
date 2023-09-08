@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "293918615147",
+    "firebase_url": "https://xo-game-eed19-default-rtdb.firebaseio.com",
+    "project_id": "xo-game-eed19",
+    "storage_bucket": "xo-game-eed19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293918615147:android:c8fd61ab88cdee9459332e",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293918615147-i5m2u4466l0uc1aj28gcviav5754rm53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJVoZrNy1dSVy7SHV-8iYa0vlCmNX5yXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293918615147-i5m2u4466l0uc1aj28gcviav5754rm53.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "293918615147-ufbh4t4dfd65v6kegk7nt6gasa9mpbmt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.xoGame"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293918615147:android:84cfd7464b8219cb59332e",
+        "android_client_info": {
+          "package_name": "com.example.xo_game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293918615147-i5m2u4466l0uc1aj28gcviav5754rm53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJVoZrNy1dSVy7SHV-8iYa0vlCmNX5yXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293918615147-i5m2u4466l0uc1aj28gcviav5754rm53.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "293918615147-ufbh4t4dfd65v6kegk7nt6gasa9mpbmt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.xoGame"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
