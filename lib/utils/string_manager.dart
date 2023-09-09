@@ -16,4 +16,22 @@ class StringManager {
   static const String playerName = "Player name";
   static const String searchForPlayer = "Search for player";
   static const String search = "Search";
+  static const String cannotCreateMatch = "Can't create a match right now.";
+  static const String inviteAPlayer = "Invite a player";
+  static const String acceptAnInvite = "Accept an invitation";
+  static const String matchId = "Match ID";
+  static const String waitingForAnotherPlayer = "Waiting for another player";
+
+  //Functions
+  static String duplicatedName({required String name}) {
+    return "$name is already taken.";
+  }
+
+  static String playerNotfound({required String name}) {
+    return "Player $name was not found";
+  }
+
+  static String matchIdMessage({required int id}) {
+    return "Match ID: $id.";
+  }
 }

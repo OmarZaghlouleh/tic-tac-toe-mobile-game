@@ -1,8 +1,11 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:xo_game/Views/multiplayer/connect_with_player_view.dart';
+import 'package:xo_game/Views/Multiplayer/invite_player_view.dart';
+import 'package:xo_game/Views/Multiplayer/landing_view.dart';
+import 'package:xo_game/utils/firebase_functions.dart';
 import 'package:xo_game/utils/snackbar.dart';
 import 'package:xo_game/utils/string_manager.dart';
 
@@ -69,24 +72,41 @@ class AuthViewModel with ChangeNotifier {
   Future<void> createUser({required BuildContext context}) async {
     try {
       setActionLoadingState(state: true);
-      final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: getEmailController.text.trim(),
-          password: getPasswordController.text.trim());
-      if (result.user != null) {
-        _user = result.user;
-        await _user!.updateDisplayName(getNameController.text.trim());
+      if (!await isDuplicateUniqueName(getNameController.text.trim())) {
+        final result = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: getEmailController.text.trim(),
+                password: getPasswordController.text.trim());
+        if (result.user != null) {
+          _user = result.user;
+          await _user!.updateDisplayName(getNameController.text.trim());
 
-        await setUserData(user: _user!);
+          showSnackbar(
+              success: true,
+              context: context,
+              message: StringManager.successfullyRegistered);
+          FirebaseFirestore firestore = FirebaseFirestore.instance;
+          final users = firestore.collection('users');
+          final user = await users.add({
+            'name': getNameController.text.trim(),
+            'id': _user!.uid,
+          });
+          await setUserData(
+              id: _user!.uid, name: getNameController.text.trim());
+          resetControllers();
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MultiplayerLandingView(),
+              ));
+          notifyListeners();
+        }
+      } else {
         showSnackbar(
-            success: true,
             context: context,
-            message: StringManager.successfullyRegistered);
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ConnectWithPlayerView(),
-            ));
-        notifyListeners();
+            message: StringManager.duplicatedName(
+                name: getNameController.text.trim()),
+            success: false);
       }
     } on FirebaseAuthException catch (e) {
       showSnackbar(
@@ -95,6 +115,12 @@ class AuthViewModel with ChangeNotifier {
       log(e.toString());
     }
     setActionLoadingState(state: false);
+  }
+
+  void resetControllers() {
+    _emailController.clear();
+    _passwordController.clear();
+    _nameController.clear();
   }
 
   //Getters
