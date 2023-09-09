@@ -3,7 +3,7 @@ import 'package:xo_game/View%20Models/multiplayer_view_model.dart';
 import 'package:xo_game/Views/Auth/register_view.dart';
 import 'package:xo_game/Views/game_screen.dart';
 import 'package:xo_game/Views/game_screen_landscape.dart';
-import 'package:xo_game/Views/multiplayer/connect_with_player_view.dart';
+import 'package:xo_game/Views/Multiplayer/invite_player_view.dart';
 import 'package:xo_game/Views/my_scaffold_landscape.dart';
 import 'package:xo_game/Widgets/animated_background.dart';
 import 'package:page_transition/page_transition.dart';
@@ -14,6 +14,7 @@ import 'package:xo_game/utils/extensions.dart';
 import 'package:xo_game/utils/theme_manager.dart';
 
 import '../utils/string_manager.dart';
+import 'Multiplayer/landing_view.dart';
 
 class MyScaffold extends StatelessWidget {
   @override
@@ -88,7 +89,7 @@ class MyScaffold extends StatelessWidget {
                                 Navigator.pushReplacement(
                                     context,
                                     PageTransition(
-                                        child: const ConnectWithPlayerView(),
+                                        child: MultiplayerLandingView(),
                                         type: PageTransitionType.topToBottom));
                               } else {
                                 Navigator.pushReplacement(

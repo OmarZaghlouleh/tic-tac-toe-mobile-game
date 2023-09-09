@@ -29,13 +29,6 @@ class RegisterView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  StringManager.register,
-                  style: ThemeManager.defaultTextStyle(fontSize: 40),
-                ),
-              ),
               20.space(),
               Center(
                 child: Form(

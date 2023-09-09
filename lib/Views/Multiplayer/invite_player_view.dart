@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xo_game/View%20Models/multiplayer_view_model.dart';
@@ -10,13 +9,13 @@ import 'package:xo_game/utils/theme_manager.dart';
 
 import '../../Widgets/loading_indicator.dart';
 
-class ConnectWithPlayerView extends StatelessWidget {
-  const ConnectWithPlayerView({Key? key}) : super(key: key);
+class InvitePlayerView extends StatelessWidget {
+  const InvitePlayerView({Key? key}) : super(key: key);
 
   void init({required BuildContext context}) {
     Future.delayed(Duration.zero).then((value) {
       Provider.of<MultiplayerViewModel>(context, listen: false)
-          .initCotrollers();
+          .initNameController();
     });
   }
 
@@ -43,11 +42,37 @@ class ConnectWithPlayerView extends StatelessWidget {
                   Provider.of<MultiplayerViewModel>(context, listen: false)
                       .getNameController,
             ),
+            Selector<MultiplayerViewModel, int?>(
+              selector: (p0, p1) => p1.getMatchId,
+              builder: (context, value, child) => value == null
+                  ? const SizedBox.shrink()
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        StringManager.matchIdMessage(
+                          id: value,
+                        ),
+                        style: ThemeManager.defaultTextStyle(
+                            withFontFamily: false, fontSize: 18),
+                      ),
+                    ),
+            ),
             20.space(),
+            Selector<MultiplayerViewModel, bool>(
+              builder: (context, value, child) => value
+                  ? Column(
+                      children: [
+                        Text(StringManager.waitingForAnotherPlayer),
+                        LoadingIndicator(),
+                      ],
+                    )
+                  : SizedBox.shrink(),
+              selector: (p0, p1) => p1.getWaitingResponseState,
+            ),
             Consumer<MultiplayerViewModel>(
               builder: (context, multiplayer, child) =>
                   multiplayer.getActionLoadingState
-                      ? LoadingIndicator()
+                      ? const LoadingIndicator()
                       : CustomButton(
                           width: 200,
                           title: StringManager.search,
@@ -58,29 +83,6 @@ class ConnectWithPlayerView extends StatelessWidget {
                                   await multiplayer.search(context: context);
                                 }),
             ),
-            FutureBuilder<DocumentSnapshot>(
-              future: Provider.of<MultiplayerViewModel>(context, listen: false)
-                  .getUsers(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<DocumentSnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return Text("Something went wrong");
-                }
-
-                if (snapshot.hasData && !snapshot.data!.exists) {
-                  return Text("Document does not exist");
-                }
-
-                if (snapshot.connectionState == ConnectionState.done) {
-                  Map<String, dynamic> data =
-                      snapshot.data!.data() as Map<String, dynamic>;
-                  return Text(
-                      "Full Name: ${data['full_name']} ${data['last_name']}");
-                }
-
-                return Text("loading");
-              },
-            )
           ]),
         ),
       ),

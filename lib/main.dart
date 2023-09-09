@@ -11,8 +11,10 @@ import 'Views/my_scaffold.dart';
 
 late SharedPreferences sharedPreferences;
 void main() async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   sharedPreferences = await SharedPreferences.getInstance();
