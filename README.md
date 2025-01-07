@@ -1,5 +1,4 @@
-# xo_game
-
+# Tic Tac Toe (XO) Game
 A new Flutter project.
 
 ## Getting Started
